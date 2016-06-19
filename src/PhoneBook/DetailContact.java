@@ -1,4 +1,5 @@
 package PhoneBook;
+import java.util.ArrayList;
 
 /**
  * Created by Мария on 19.06.2016.
@@ -14,9 +15,11 @@ private String workplace;
         return name;
     }
     public void setPhone(String phone) {
-        this.phone = phone;
+
+        this.phone.add(phone);
+
     }
-    public String getPhone(){
+    public ArrayList <String> getPhone(){
         return phone;
     }
     public void setEmail(String email) {

@@ -18,15 +18,18 @@ public class Main {
                 System.out.println("Введите имя: ");
                 book.setName(sc.next());
                 while (true) {
-                    System.out.println("Введите телефон: ");
-                    book.setPhone(sc.next());
-                    System.out.println("Введите еще телефон или нажмите 'q', для завершения: ");
+                    System.out.println("Введите  телефон: ");
+                    System.out.println("Нажмите 'y' чтобы продолжить или 'n' для выхода");
                     String str = sc.next();
-                    String q = "q";
-                    if (str.equals(q)){
+                    String y = "y";
+                    String n = "n";
+                    if (str.equals(n))
                         break;
+                    else if (str.equals(y))
+                        break;
+                    else
+                        book.setPhone(str);
                     }
-                }
                 System.out.println("Введите email: ");
                 book.setEmail(sc.next());
                 System.out.println("Введите адрес: ");
@@ -52,15 +55,12 @@ public class Main {
                     }
                 }
                 for (int j = 0; j < list.size(); j++) {
-                    if (list.get(j).getPhone().equals(1)) {
-
-                        System.out.println(list.get(j).getName() + " " + list.get(j).getPhone() + " " + list.get(j).getEmail() +
+                       System.out.println(list.get(j).getName() + " " + list.get(j).getPhone() + " " + list.get(j).getEmail() +
                                 " " + list.get(j).getAddress() + " " + list.get(j).getWorkplace());
-                    }
+
                 }
 
             }
-
                 else if (i == 3) {
                     System.out.println("Выход из программы");
                     break;
