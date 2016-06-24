@@ -1,5 +1,7 @@
 package PhoneBook;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 /**
  * Created by Юрий on 11.06.2016.
@@ -37,17 +39,18 @@ public class Main {
                     System.out.println("Телефонная книга пустая.");
                     continue;
                 }
-                for (int k = 0; k < list.size() - 1; k++) {
-                    for (int j = 0; j < list.size() - 1 - k; j++) {
-                        char left = list.get(j).getName().toCharArray()[0];
-                        char right = list.get(j + 1).getName().toCharArray()[0];
-                        if (left > right) {
-                            DetailContact temp = list.get(j);
-                            list.set(j, list.get(j + 1));
-                            list.set((j + 1), temp);
-                        }
-                    }
-                }
+//                for (int k = 0; k < list.size() - 1; k++) {
+//                    for (int j = 0; j < list.size() - 1 - k; j++) {
+//                        char left = list.get(j).getName().toCharArray()[0];
+//                        char right = list.get(j + 1).getName().toCharArray()[0];
+//                        if (left > right) {
+//                            DetailContact temp = list.get(j);
+//                            list.set(j, list.get(j + 1));
+//                            list.set((j + 1), temp);
+//                        }
+//                    }
+//                }
+                Collections.sort(list);
                 for (int j = 0; j < list.size(); j++) {
                     if (list.get(j).getPhone().size() == 1) {
                         System.out.println(list.get(j).getName() + ", " + list.get(j).getPhone() + ", " + list.get(j).getEmail() +

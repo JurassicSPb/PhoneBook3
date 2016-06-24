@@ -10,4 +10,8 @@ public class Contact {
     protected String name;
     protected String email;
 
+    public boolean equals (Object another){
+        Contact contact = (Contact) another;
+        return this.name.equals(contact.name);
+    }
 }

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 /**
  * Created by Мария on 19.06.2016.
  */
-public class DetailContact extends Contact {
+public class DetailContact extends Contact implements Comparable<DetailContact>
+{
 private String address;
 private String workplace;
 
@@ -39,5 +40,9 @@ private String workplace;
     }
     public String getWorkplace() {
         return workplace;
+    }
+    @Override
+    public int compareTo(DetailContact o){
+    return this.getName().compareTo(o.getName());
     }
 }
