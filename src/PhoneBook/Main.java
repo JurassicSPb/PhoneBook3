@@ -21,8 +21,7 @@ public class Main {
                 while (true) {
                     System.out.println("Введите  телефон или нажмите 'n' для выхода: ");
                     String str = sc.next();
-                    String n = "n";
-                    if (str.equals(n))
+                    if (str.equals("n"))
                         break;
                     else
                         book.setPhone(str);
