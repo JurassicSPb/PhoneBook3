@@ -63,7 +63,7 @@ public class Main {
                         for (int k = 0; k < list.get(j).getPhone().size(); k++) {
                             System.out.printf("%s \n", list.get(j).getPhone().get(k));
                         }
-                        System.out.printf("<<< %s phones >>> \n", list.get(j).getName());
+                        System.out.printf("<<< %s's phones >>> \n", list.get(j).getName());
                         System.out.println();
                     }
                 }
