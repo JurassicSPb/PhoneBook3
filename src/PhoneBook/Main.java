@@ -53,7 +53,7 @@ public class Main {
                 for (int j = 0; j < list.size(); j++) {
                     if (list.get(j).getPhone().size() == 1) {
                         System.out.println(list.get(j).getName() + ", " + list.get(j).getPhone() + ", " + list.get(j).getEmail() +
-                                ", " + list.get(j).getAddress() + " " + list.get(j).getWorkplace() + "\n");
+                                ", " + list.get(j).getAddress() + " " + list.get(j).getWorkplace());
                     }
                     else {
                         System.out.print("\n" + list.get(j).getName() + ", ");

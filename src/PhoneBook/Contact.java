@@ -10,6 +10,26 @@ public class Contact {
     protected String name;
     protected String email;
 
+    public void setName (String name){
+        this.name=name;
+    }
+    public String getName (){
+        return name;
+    }
+    public void setPhone(String phone) {
+
+        this.phone.add(phone);
+
+    }
+    public ArrayList <String> getPhone(){
+        return phone;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getEmail (){
+        return email;
+    }
     public boolean equals (Object another){
         Contact contact = (Contact) another;
         return this.name.equals(contact.name);
