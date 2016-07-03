@@ -1,8 +1,6 @@
 package PhoneBook;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
+
 /**
  * Created by Юрий on 11.06.2016.
  */
@@ -10,11 +8,23 @@ public class Main {
     public static void main (String [] args) {
         System.out.println("Телефонная книга.");
         Scanner sc = new Scanner(System.in);
+        Comparator <DetailContact> compByNameAscending = (name1, name2) ->
+        {return  name1.getName().compareTo(name2.getName());
+        };
+        Comparator <DetailContact> compByNameDescending = (name1, name2) ->
+        {return  name2.getName().compareTo(name1.getName());
+        };
+        Comparator <DetailContact> compByEmailAscending = (email1, email2) ->
+        {return  email1.getEmail().compareTo(email2.getEmail());
+        };
+        Comparator <DetailContact> compByEmailDescending = (email1, email2) ->
+        {return  email2.getEmail().compareTo(email1.getEmail());
+        };
         ArrayList<DetailContact> list = new ArrayList<>();
         while (true) {
-            System.out.println("Menu: \n 1. Добавить контакт \n 2. Показать все контакты \n 3. Выход \n 4. Удалить контакт");
-            int i = sc.nextInt();
-            if (i == 1) {
+            System.out.println("Menu: \n 1. Добавить контакт \n 2. Показать все контакты \n 3. Выход \n 4. Удалить контакт \n Нажмите 'ne' для сортировки по имени и email" );
+            String choice = sc.next();
+            if (choice.equals("1")) {
                 DetailContact book = new DetailContact();
                 System.out.println("Введите имя: ");
                 book.setName(sc.next());
@@ -33,7 +43,7 @@ public class Main {
                 System.out.println("Введите место работы: ");
                 book.setWorkplace(sc.next());
                 list.add(book);
-            } else if (i == 2) {
+            } else if (choice.equals("2")) {
                 if (list.size() == 0) {
                     System.out.println("Телефонная книга пустая.");
                     continue;
@@ -67,11 +77,11 @@ public class Main {
                     }
                 }
             }
-                else if (i == 3) {
+                else if (choice.equals("3")) {
                     System.out.println("Выход из программы");
                     break;
                 }
-                else if (i == 4) {
+                else if (choice.equals("4")) {
                     if (list.size() == 0) {
                         System.out.println("Телефонная книга пустая.");
                         continue;
@@ -88,9 +98,18 @@ public class Main {
                         }
                     }
                 }
-                else {
-                    System.out.println("Неверно введенная команда: ");
+            else if (choice.equals("ne"))
+            {
+                Collections.sort(list, compByEmailAscending);
+                Collections.sort(list, compByNameAscending);
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println(list.get(i).getName() + " " + list.get(i).getEmail());
                 }
+            }
+            else
+            {
+                System.out.println("Неверно введенная команда: ");
             }
         }
     }
+}
