@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
- * Created by Мария on 19.06.2016.
+ * Created by Юрий on 11.06.2016.
  */
 public class DetailContact extends Contact implements Comparable<DetailContact>
 {
