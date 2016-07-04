@@ -8,10 +8,10 @@ public class Main {
     public static void main (String [] args) {
         System.out.println("Телефонная книга.");
         Scanner sc = new Scanner(System.in);
-        Comparator <DetailContact> compByNameAscending = (name1, name2) -> name1.getName().compareTo(name2.getName());
-        Comparator <DetailContact> compByNameDescending = (name1, name2) -> name2.getName().compareTo(name1.getName());
-        Comparator <DetailContact> compByEmailAscending = (email1, email2) -> email1.getEmail().compareTo(email2.getEmail());
-        Comparator <DetailContact> compByEmailDescending = (email1, email2) -> email2.getEmail().compareTo(email1.getEmail());
+        Comparator <Contact> compByNameAscending = (name1, name2) -> name1.getName().compareTo(name2.getName());
+        Comparator <Contact> compByNameDescending = (name1, name2) -> name2.getName().compareTo(name1.getName());
+        Comparator <Contact> compByEmailAscending = (email1, email2) -> email1.getEmail().compareTo(email2.getEmail());
+        Comparator <Contact> compByEmailDescending = (email1, email2) -> email2.getEmail().compareTo(email1.getEmail());
         ArrayList<DetailContact> list = new ArrayList<>();
         while (true) {
             System.out.println("Menu: \n 1. Добавить контакт \n 2. Показать все контакты \n 3. Выход \n 4. Удалить контакт \n 5. Настройкка сортировки контактов" );
