@@ -94,9 +94,12 @@ public class Main {
                 System.out.println ("Введите \"ne\" для сортировки по имени, а при совпадении по email");
                 System.out.println ("Введите \"en\" для сортировки по email, а при совпадении по имени");
                 System.out.println ("Введите \"-ne\" для сортировки по имени в обратном порядке, а при совпадении по email");
+                System.out.println ("Введите \"-en\" для сортировки по email в обратном порядке, а при совпадении по имени");
                 System.out.println ("Введите \"n-e\" для сортировки по имени, а при совпадении по email в обратном порядке");
+                System.out.println ("Введите \"e-n\" для сортировки по email, а при совпадении по имени в обратном порядке");
                 System.out.println ("Введите \"-n-e\" для сортировки по имени в обратном порядке, а при совпадении по email в обратном порядке");
                 System.out.println ("Введите \"-e-n\" для сортировки по email в обратном порядке, а при совпадении по имени в обратном порядке");
+
                 String str = sc.next();
                 if (str.equals("ne"))
                 {
@@ -113,10 +116,20 @@ public class Main {
                     Collections.sort(list, compByEmailAscending);
                     Collections.sort(list, compByNameDescending);
                 }
+                else if (str.equals("-en"))
+                {
+                    Collections.sort(list, compByNameAscending);
+                    Collections.sort(list, compByEmailDescending);
+                }
                 else if (str.equals("n-e"))
                 {
                     Collections.sort(list, compByEmailDescending);
                     Collections.sort(list, compByNameAscending);
+                }
+                else if (str.equals("e-n"))
+                {
+                    Collections.sort(list, compByNameDescending);
+                    Collections.sort(list, compByEmailAscending);
                 }
                 else if (str.equals("-n-e"))
                 {
