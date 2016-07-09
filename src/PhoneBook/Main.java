@@ -1,45 +1,81 @@
 package PhoneBook;
+import java.io.BufferedReader;
 import java.util.*;
+import java.io.*;
 
 /**
  * Created by Юрий on 11.06.2016.
  */
 public class Main {
-    public static void main (String [] args) {
+    public static void main(String[] args) {
         System.out.println("Телефонная книга.");
-        Scanner sc = new Scanner(System.in);
-        Comparator <Contact> compByNameAscending = (name1, name2) -> name1.getName().compareTo(name2.getName());
-        Comparator <Contact> compByNameDescending = (name1, name2) -> name2.getName().compareTo(name1.getName());
-        Comparator <Contact> compByEmailAscending = (email1, email2) -> email1.getEmail().compareTo(email2.getEmail());
-        Comparator <Contact> compByEmailDescending = (email1, email2) -> email2.getEmail().compareTo(email1.getEmail());
-        ArrayList<DetailContact> list = new ArrayList<>();
+        DetailContact book = new DetailContact();
+        ArrayList<DetailContact> contacts = new ArrayList<>();
+        File inputFile = new File("contacts.txt");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Comparator<Contact> compByNameAscending = (name1, name2) -> name1.getName().compareTo(name2.getName());
+        Comparator<Contact> compByNameDescending = (name1, name2) -> name2.getName().compareTo(name1.getName());
+        Comparator<Contact> compByEmailAscending = (email1, email2) -> email1.getEmail().compareTo(email2.getEmail());
+        Comparator<Contact> compByEmailDescending = (email1, email2) -> email2.getEmail().compareTo(email1.getEmail());
         while (true) {
-            System.out.println("Menu: \n 1. Добавить контакт \n 2. Показать все контакты \n 3. Выход \n 4. Удалить контакт \n 5. Настройкка сортировки контактов" );
-            int choice = sc.nextInt();
-            if (choice == 1) {
-                DetailContact book = new DetailContact();
-                System.out.println("Введите имя: ");
-                book.setName(sc.next());
-                while (true) {
-                    System.out.println("Введите  телефон или нажмите 'n' для выхода: ");
-                    String str = sc.next();
-                    if (str.equals("n"))
-                        break;
-                    else
-                        book.setPhone(str);
-                }
-                System.out.println("Введите email: ");
-                book.setEmail(sc.next());
-                System.out.println("Введите адрес: ");
-                book.setAddress(sc.next());
-                System.out.println("Введите место работы: ");
-                book.setWorkplace(sc.next());
-                list.add(book);
-            } else if (choice == 2) {
-                if (list.size() == 0) {
-                    System.out.println("Телефонная книга пустая.");
-                    continue;
-                }
+            try {
+                System.out.println("Menu: \n 1. Добавить контакт \n 2. Показать все контакты \n 3. Выход \n 4. Удалить контакт \n 5. Настройкка сортировки контактов");
+                String input = reader.readLine();
+                if (input.equals("1")) {
+                    try {
+                        PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile));
+                        System.out.println("Введите имя: ");
+                        book.setName(reader.readLine());
+                        while (true) {
+                            System.out.println("Введите  телефон или нажмите 'n' для выхода: ");
+                            input = reader.readLine();
+                            if (input.equals("n"))
+                                break;
+                            else
+                                book.setPhone(input);
+                        }
+                        System.out.println("Введите email: ");
+                        book.setEmail(reader.readLine());
+                        System.out.println("Введите адрес: ");
+                        book.setAddress(reader.readLine());
+                        System.out.println("Введите место работы: ");
+                        book.setWorkplace(reader.readLine());
+                        contacts.add(book);
+                        for (int i = 0; i < contacts.size(); i++) {
+                            if (contacts.get(i).getPhone().size() == 1)
+                            {
+                                writer.println(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " + contacts.get(i).getEmail() +
+                                        ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace());
+                                writer.flush();
+                            }
+                            else {
+                                writer.print("\n" + contacts.get(i).getName() + ", ");
+                                writer.print(contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
+                                writer.println("<--- phones --->");
+                                for (int k = 0; k < contacts.get(i).getPhone().size(); k++) {
+                                    writer.printf("%s \n", contacts.get(i).getPhone().get(k));
+                                }
+                                writer.printf("<<< %s's phones >>> \n", contacts.get(i).getName());
+                                writer.println();
+                                writer.flush();
+                            }
+                        }
+                        writer.close();
+                    }catch(IOException e){
+                            e.printStackTrace();
+                        }
+                } else if (input.equals("2")) {
+                    BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+                    String line;
+                    while ((line = readerFromFile.readLine()) != null)
+                        {
+                            System.out.println(line);
+                        }
+                        reader.close();
+//                        if (contacts.size() == 0) {
+//                            System.out.println("Телефонная книга пустая.");
+//                            continue;
+//                        }
 //                for (int k = 0; k < list.size() - 1; k++) {
 //                    for (int j = 0; j < list.size() - 1 - k; j++) {
 //                        char left = list.get(j).getName().toCharArray()[0];
@@ -51,105 +87,87 @@ public class Main {
 //                        }
 //                    }
 //                }
-                for (int j = 0; j < list.size(); j++) {
-                    if (list.get(j).getPhone().size() == 1) {
-                        System.out.println(list.get(j).getName() + ", " + list.get(j).getPhone() + ", " + list.get(j).getEmail() +
-                                ", " + list.get(j).getAddress() + " " + list.get(j).getWorkplace() + "\n");
-                    }
-                    else {
-                        System.out.print("\n" + list.get(j).getName() + ", ");
-                        System.out.print(list.get(j).getEmail() + ", " + list.get(j).getAddress() + ", " + list.get(j).getWorkplace() + "\n");
-                        System.out.println("<--- phones --->");
-                        for (int k = 0; k < list.get(j).getPhone().size(); k++) {
-                            System.out.printf("%s \n", list.get(j).getPhone().get(k));
+//
+//                        for (int j = 0; j < contacts.size(); j++) {
+//                            if (contacts.get(j).getPhone().size() == 1) {
+//                                System.out.println(contacts.get(j).getName() + ", " + contacts.get(j).getPhone() + ", " + contacts.get(j).getEmail() +
+//                                        ", " + contacts.get(j).getAddress() + " " + contacts.get(j).getWorkplace() + "\n");
+//                            } else {
+//                                System.out.print("\n" + contacts.get(j).getName() + ", ");
+//                                System.out.print(contacts.get(j).getEmail() + ", " + contacts.get(j).getAddress() + ", " + contacts.get(j).getWorkplace() + "\n");
+//                                System.out.println("<--- phones --->");
+//                                for (int k = 0; k < contacts.get(j).getPhone().size(); k++) {
+//                                    System.out.printf("%s \n", contacts.get(j).getPhone().get(k));
+//                                }
+//                                System.out.printf("<<< %s's phones >>> \n", contacts.get(j).getName());
+//                                System.out.println();
+//                            }
+//                        }
+                    }else if (input.equals("3")) {
+                        System.out.println("Выход из программы");
+                        break;
+                    } else if (input.equals("4")) {
+                        if (contacts.size() == 0) {
+                            System.out.println("Телефонная книга пустая.");
+                            continue;
                         }
-                        System.out.printf("<<< %s's phones >>> \n", list.get(j).getName());
-                        System.out.println();
-                    }
-                }
-            }
-                else if (choice == 3) {
-                    System.out.println("Выход из программы");
-                    break;
-                }
-                else if (choice == 4) {
-                    if (list.size() == 0) {
-                        System.out.println("Телефонная книга пустая.");
-                        continue;
-                    }
-                    for (int j = 0; j < list.size(); j++) {
-                        System.out.println(list.get(j).getName());
-                    }
-                    System.out.println("Введите имя из списка для удаления: ");
-                    String str = sc.next();
-                    for (int j = 0; j < list.size(); j++) {
-                        if (str.equals(list.get(j).getName())) {
-                            list.remove(j);
-                            break;
+                        for (int j = 0; j < contacts.size(); j++) {
+                            System.out.println(contacts.get(j).getName());
                         }
-                    }
-                }
-            else if (choice  == 5)
-            {
-                System.out.println ("Введите \"ne\" для сортировки по имени, а при совпадении по email");
-                System.out.println ("Введите \"en\" для сортировки по email, а при совпадении по имени");
-                System.out.println ("Введите \"-ne\" для сортировки по имени в обратном порядке, а при совпадении по email");
-                System.out.println ("Введите \"-en\" для сортировки по email в обратном порядке, а при совпадении по имени");
-                System.out.println ("Введите \"n-e\" для сортировки по имени, а при совпадении по email в обратном порядке");
-                System.out.println ("Введите \"e-n\" для сортировки по email, а при совпадении по имени в обратном порядке");
-                System.out.println ("Введите \"-n-e\" для сортировки по имени в обратном порядке, а при совпадении по email в обратном порядке");
-                System.out.println ("Введите \"-e-n\" для сортировки по email в обратном порядке, а при совпадении по имени в обратном порядке");
+                        System.out.println("Введите имя из списка для удаления: ");
+                        input = reader.readLine();
+                        for (int j = 0; j < contacts.size(); j++) {
+                            if (input.equals(contacts.get(j).getName())) {
+                                contacts.remove(j);
+                                break;
+                            }
+                        }
+                    } else if (input.equals("5")) {
+                        System.out.println("Введите \"ne\" для сортировки по имени, а при совпадении по email");
+                        System.out.println("Введите \"en\" для сортировки по email, а при совпадении по имени");
+                        System.out.println("Введите \"-ne\" для сортировки по имени в обратном порядке, а при совпадении по email");
+                        System.out.println("Введите \"-en\" для сортировки по email в обратном порядке, а при совпадении по имени");
+                        System.out.println("Введите \"n-e\" для сортировки по имени, а при совпадении по email в обратном порядке");
+                        System.out.println("Введите \"e-n\" для сортировки по email, а при совпадении по имени в обратном порядке");
+                        System.out.println("Введите \"-n-e\" для сортировки по имени в обратном порядке, а при совпадении по email в обратном порядке");
+                        System.out.println("Введите \"-e-n\" для сортировки по email в обратном порядке, а при совпадении по имени в обратном порядке");
 
-                String str = sc.next();
-                if (str.equals("ne"))
-                {
-                    Collections.sort(list, compByEmailAscending);
-                    Collections.sort(list, compByNameAscending);
+                        input = reader.readLine();
+                        if (input.equals("ne")) {
+                            Collections.sort(contacts, compByEmailAscending);
+                            Collections.sort(contacts, compByNameAscending);
+                        } else if (input.equals("en")) {
+                            Collections.sort(contacts, compByNameAscending);
+                            Collections.sort(contacts, compByEmailAscending);
+                        } else if (input.equals("-ne")) {
+                            Collections.sort(contacts, compByEmailAscending);
+                            Collections.sort(contacts, compByNameDescending);
+                        } else if (input.equals("-en")) {
+                            Collections.sort(contacts, compByNameAscending);
+                            Collections.sort(contacts, compByEmailDescending);
+                        } else if (input.equals("n-e")) {
+                            Collections.sort(contacts, compByEmailDescending);
+                            Collections.sort(contacts, compByNameAscending);
+                        } else if (input.equals("e-n")) {
+                            Collections.sort(contacts, compByNameDescending);
+                            Collections.sort(contacts, compByEmailAscending);
+                        } else if (input.equals("-n-e")) {
+                            Collections.sort(contacts, compByEmailDescending);
+                            Collections.sort(contacts, compByNameDescending);
+                        } else if (input.equals("-e-n")) {
+                            Collections.sort(contacts, compByNameDescending);
+                            Collections.sort(contacts, compByEmailDescending);
+                        } else {
+                            System.out.println("неверно введенная команда.");
+                        }
+                    } else {
+                        System.out.println("Неверно введенная команда.");
+                    }
+
+            } catch(IOException e){
+                    e.printStackTrace();
                 }
-                else if (str.equals("en"))
-                {
-                    Collections.sort(list, compByNameAscending);
-                    Collections.sort(list, compByEmailAscending);
-                }
-                else if (str.equals("-ne"))
-                {
-                    Collections.sort(list, compByEmailAscending);
-                    Collections.sort(list, compByNameDescending);
-                }
-                else if (str.equals("-en"))
-                {
-                    Collections.sort(list, compByNameAscending);
-                    Collections.sort(list, compByEmailDescending);
-                }
-                else if (str.equals("n-e"))
-                {
-                    Collections.sort(list, compByEmailDescending);
-                    Collections.sort(list, compByNameAscending);
-                }
-                else if (str.equals("e-n"))
-                {
-                    Collections.sort(list, compByNameDescending);
-                    Collections.sort(list, compByEmailAscending);
-                }
-                else if (str.equals("-n-e"))
-                {
-                    Collections.sort(list, compByEmailDescending);
-                    Collections.sort(list, compByNameDescending);
-                }
-                else if (str.equals("-e-n"))
-                {
-                    Collections.sort(list, compByNameDescending);
-                    Collections.sort(list, compByEmailDescending);
-                }
-                else
-                {
-                    System.out.println("неверно введенная команда.");
-                }
-            }
-            else
-            {
-                System.out.println("Неверно введенная команда.");
             }
         }
     }
-}
+
