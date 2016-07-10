@@ -23,7 +23,7 @@ public class Main {
                 String input = reader.readLine();
                 if (input.equals("1")) {
                     try {
-                        PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile));
+                        PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile, true));
                         System.out.println("Введите имя: ");
                         book.setName(reader.readLine());
                         while (true) {
@@ -64,18 +64,18 @@ public class Main {
                     }catch(IOException e){
                             e.printStackTrace();
                         }
+
                 } else if (input.equals("2")) {
-                    BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
-                    String line;
-                    while ((line = readerFromFile.readLine()) != null)
-                        {
+                    try {
+                        BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+                        String line;
+                        while ((line = readerFromFile.readLine()) != null) {
                             System.out.println(line);
                         }
-                        reader.close();
-//                        if (contacts.size() == 0) {
-//                            System.out.println("Телефонная книга пустая.");
-//                            continue;
-//                        }
+                        readerFromFile.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
 //                for (int k = 0; k < list.size() - 1; k++) {
 //                    for (int j = 0; j < list.size() - 1 - k; j++) {
 //                        char left = list.get(j).getName().toCharArray()[0];
@@ -87,22 +87,6 @@ public class Main {
 //                        }
 //                    }
 //                }
-//
-//                        for (int j = 0; j < contacts.size(); j++) {
-//                            if (contacts.get(j).getPhone().size() == 1) {
-//                                System.out.println(contacts.get(j).getName() + ", " + contacts.get(j).getPhone() + ", " + contacts.get(j).getEmail() +
-//                                        ", " + contacts.get(j).getAddress() + " " + contacts.get(j).getWorkplace() + "\n");
-//                            } else {
-//                                System.out.print("\n" + contacts.get(j).getName() + ", ");
-//                                System.out.print(contacts.get(j).getEmail() + ", " + contacts.get(j).getAddress() + ", " + contacts.get(j).getWorkplace() + "\n");
-//                                System.out.println("<--- phones --->");
-//                                for (int k = 0; k < contacts.get(j).getPhone().size(); k++) {
-//                                    System.out.printf("%s \n", contacts.get(j).getPhone().get(k));
-//                                }
-//                                System.out.printf("<<< %s's phones >>> \n", contacts.get(j).getName());
-//                                System.out.println();
-//                            }
-//                        }
                     }else if (input.equals("3")) {
                         System.out.println("Выход из программы");
                         break;
