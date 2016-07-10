@@ -64,7 +64,6 @@ public class Main {
                     }catch(IOException e){
                             e.printStackTrace();
                         }
-
                 } else if (input.equals("2")) {
                     try {
                         BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
