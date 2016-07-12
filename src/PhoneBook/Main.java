@@ -11,7 +11,6 @@ public class Main {
         try {
             System.out.println("Телефонная книга.");
             DetailContact book = new DetailContact();
-            DetailContact newDetailContact = new DetailContact();
             ArrayList<DetailContact> contacts = new ArrayList<>();
             File inputFile = new File("contacts.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -44,52 +43,49 @@ public class Main {
                         book.setWorkplace(reader.readLine());
                         contacts.add(book);
                         for (int i = 0; i < contacts.size(); i++) {
-                            if (contacts.get(i).getPhone().size() == 1) {
-                                writer.println(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " + contacts.get(i).getEmail() +
-                                        ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace());
-                                writer.flush();
-                            } else {
-                                writer.print(contacts.get(i).getName() + ", ");
-                                for (int k = 0; k < contacts.get(i).getPhone().size(); k++) {
-                                    writer.print(contacts.get(i).getPhone().get(k) + " ");
+                           if (contacts.get(i).getPhone().size() == 1) {
+                               writer.print(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " + contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
+                               writer.flush();
+                            }
+                            else {
+                               writer.print(contacts.get(i).getName() + ", ");
+                               for (int k = 0; k < contacts.get(i).getPhone().size(); k++) {
+                                   writer.print(contacts.get(i).getPhone().get(k) + " ");
                                 }
-                                writer.print (",");
-                                writer.print(contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace());
+                               writer.print(", " + contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace());
                                 //writer.println("<--- phones --->");
                                 //writer.printf("<<< %s's phones >>> \n", contacts.get(i).getName());
-                                writer.println();
-                                writer.flush();
+                               writer.println();
+                               writer.flush();
                             }
-                        }
-                        writer.close();
+                       }
+                      writer.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else if (input.equals("2")) {
-                    BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
-                   while ((line = readerFromFile.readLine()) != null) {
-                       StringTokenizer st = new StringTokenizer(line, ",");
-                       while(st.hasMoreTokens()) {
-                           newDetailContact.setName(line);
-//                           st.nextToken();
-//                           newDetailContact.setPhone(line);
-//                           st.nextToken();
-//                           newDetailContact.setEmail(line);
-//                           st.nextToken();
-//                           newDetailContact.setAddress(line);
-//                           st.nextToken();
-//                           newDetailContact.setWorkplace(line);
-//                           contacts.add(newDetailContact);
-                            System.out.println(st.nextToken());
-                       }
-
-                   }
-//                   while ((line = readerFromFile.readLine()) != null) {
-//                       DetailContact newDetailContact = new DetailContact();
-//                           newDetailContact.setName(line);
-//                         System.out.println(newDetailContact.getName());
-//                        }
-                    readerFromFile.close();
+                    try {
+                        BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+                        while ((line = readerFromFile.readLine()) != null) {
+                            String[] information = line.split(",");
+                            String name = information[0];
+                            String phone = information[1];
+                            String email = information[2];
+                            String address = information[3];
+                            String workplace = information[4];
+                            book.setName(name);
+                            book.setPhone(phone);
+                            book.setEmail(email);
+                            book.setAddress(address);
+                            book.setWorkplace(workplace);
+                            contacts.add(book);
+                            System.out.print(name + "," + phone + "," + email + "," + address + "," + workplace + "\n");
+                        }
+                        readerFromFile.close();
+                    } catch (ArrayIndexOutOfBoundsException e){
+                        System.out.println ("Список контактов пустой");
+                        continue;
+                    }
 //                for (int k = 0; k < list.size() - 1; k++) {
 //                    for (int j = 0; j < list.size() - 1 - k; j++) {
 //                        char left = list.get(j).getName().toCharArray()[0];
