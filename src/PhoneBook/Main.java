@@ -43,9 +43,10 @@ public class Main {
                         book.setWorkplace(reader.readLine());
                         contacts.add(book);
                         for (int i = 0; i < contacts.size(); i++) {
-                           if (contacts.get(i).getPhone().size() == 1) {
-                               writer.print(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " + contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
-                               writer.flush();
+                          if (contacts.get(i).getPhone().size() == 1) {
+                              writer.print(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " + contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
+                              writer.flush();
+                              contacts.get(i).getPhone().clear();
                             }
                             else {
                                writer.print(contacts.get(i).getName() + ", ");
@@ -57,9 +58,12 @@ public class Main {
                                 //writer.printf("<<< %s's phones >>> \n", contacts.get(i).getName());
                                writer.println();
                                writer.flush();
+                                contacts.get(i).getPhone().clear();
                             }
                        }
                       writer.close();
+                        contacts.clear();
+                        System.out.println(contacts.size());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
