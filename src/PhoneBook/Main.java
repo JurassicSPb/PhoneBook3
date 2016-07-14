@@ -14,6 +14,7 @@ public class Main {
             ArrayList<DetailContact> contacts = new ArrayList<>();
             File inputFile = new File("contacts.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
             String line;
             Comparator<Contact> compByNameAscending = (name1, name2) -> name1.getName().compareTo(name2.getName());
             Comparator<Contact> compByNameDescending = (name1, name2) -> name2.getName().compareTo(name1.getName());
@@ -69,7 +70,7 @@ public class Main {
                     }
                 } else if (input.equals("2")) {
                     try {
-                        BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+                        readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
                         while ((line = readerFromFile.readLine()) != null) {
                             String[] information = line.split(",");
                             String name = information[0];
@@ -85,6 +86,10 @@ public class Main {
                             contacts.add(book);
                             System.out.print(name + "," + phone + "," + email + "," + address + "," + workplace + "\n");
                         }
+                        for (int i=0; i<contacts.get(i).getPhone().size(); i++){
+                            contacts.get(i).getPhone().clear();
+                        }
+                        contacts.clear();
                         readerFromFile.close();
                     } catch (ArrayIndexOutOfBoundsException e){
                         System.out.println ("Список контактов пустой");
@@ -105,21 +110,53 @@ public class Main {
                     System.out.println("Выход из программы");
                     break;
                 } else if (input.equals("4")) {
-                    if (contacts.size() == 0) {
-                        System.out.println("Телефонная книга пустая.");
+//                    if (contacts.size() == 0) {
+//                        System.out.println("Список контактов пустой");
+//                        continue;
+//                    }
+//                    else {
+                    try {
+                        readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+                        while ((line = readerFromFile.readLine()) != null) {
+                            String[] information = line.split(",");
+                            String name = information[0];
+                            String phone = information[1];
+                            String email = information[2];
+                            String address = information[3];
+                            String workplace = information[4];
+                            book.setName(name);
+                            book.setPhone(phone);
+                            book.setEmail(email);
+                            book.setAddress(address);
+                            book.setWorkplace(workplace);
+                            contacts.add(book);
+                            System.out.println(name + " ");
+                        }
+                        readerFromFile.close();
+                    } catch (ArrayIndexOutOfBoundsException e){
+                        System.out.println ("Список контактов пустой");
                         continue;
                     }
-                    for (int j = 0; j < contacts.size(); j++) {
-                        System.out.println(contacts.get(j).getName());
-                    }
+//                        for (int i = 0; i < contacts.size(); i++) {
+//                        System.out.println(contacts.get(i).getName());
+//                        System.out.println(contacts.size());
+//                        }
+//                    }
                     System.out.println("Введите имя из списка для удаления: ");
                     input = reader.readLine();
                     for (int j = 0; j < contacts.size(); j++) {
                         if (input.equals(contacts.get(j).getName())) {
-                            contacts.remove(j);
+                            System.out.println (contacts.size());
+//                            contacts.remove(j);
                             break;
                         }
                     }
+                    PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile));
+                    for (int i=0; i<contacts.size(); i++){
+                        writer.println(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " +
+                        contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace());
+                    }
+                    writer.close();
                 } else if (input.equals("5")) {
                     System.out.println("Введите \"ne\" для сортировки по имени, а при совпадении по email");
                     System.out.println("Введите \"en\" для сортировки по email, а при совпадении по имени");
