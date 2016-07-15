@@ -44,16 +44,16 @@ public class Main {
                         contacts.add(book);
                         for (int i = 0; i < contacts.size(); i++) {
                           if (contacts.get(i).getPhone().size() == 1) {
-                              writer.print(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " + contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
+                              writer.print(contacts.get(i).getName() + " ," + contacts.get(i).getPhone() + ", " + contacts.get(i).getEmail() + " ," + contacts.get(i).getAddress() + " ," + contacts.get(i).getWorkplace() + "\n");
                               writer.flush();
                               contacts.get(i).getPhone().clear();
                             }
                             else {
-                               writer.print(contacts.get(i).getName() + ", ");
+                               writer.print(contacts.get(i).getName() + " ,");
                                for (int k = 0; k < contacts.get(i).getPhone().size(); k++) {
                                    writer.print(contacts.get(i).getPhone().get(k) + " ");
                                 }
-                               writer.print(", " + contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace());
+                               writer.print(" ," + contacts.get(i).getEmail() + " ," + contacts.get(i).getAddress() + " ," + contacts.get(i).getWorkplace());
                                 //writer.println("<--- phones --->");
                                 //writer.printf("<<< %s's phones >>> \n", contacts.get(i).getName());
                                writer.println();
@@ -61,9 +61,8 @@ public class Main {
                                 contacts.get(i).getPhone().clear();
                             }
                        }
+                       contacts.clear();
                       writer.close();
-                        contacts.clear();
-                        System.out.println(contacts.size());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -71,24 +70,14 @@ public class Main {
                     try {
                         BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
                         while ((line = readerFromFile.readLine()) != null) {
-                            String[] information = line.split(",");
+                            String[] information = line.split(" ,");
                             String name = information[0];
                             String phone = information[1];
                             String email = information[2];
                             String address = information[3];
                             String workplace = information[4];
-                            book.setName(name);
-                            book.setPhone(phone);
-                            book.setEmail(email);
-                            book.setAddress(address);
-                            book.setWorkplace(workplace);
-                            contacts.add(book);
-                            System.out.print(name + "," + phone + "," + email + "," + address + "," + workplace + "\n");
+                            System.out.print(name + " ," + phone + " ," + email + " ," + address + " ," + workplace + "\n");
                         }
-                        for (int i=0; i<contacts.get(i).getPhone().size(); i++){
-                            contacts.get(i).getPhone().clear();
-                        }
-                        contacts.clear();
                         readerFromFile.close();
                     } catch (ArrayIndexOutOfBoundsException e){
                         System.out.println ("Список контактов пустой");
@@ -109,15 +98,11 @@ public class Main {
                     System.out.println("Выход из программы");
                     break;
                 } else if (input.equals("4")) {
-//                    if (contacts.size() == 0) {
-//                        System.out.println("Список контактов пустой");
-//                        continue;
-//                    }
-//                    else {
                     try {
                         BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
                         while ((line = readerFromFile.readLine()) != null) {
-                            String[] information = line.split(",");
+                            String[] information = line.split(" ,");
+                            book = new DetailContact();
                             String name = information[0];
                             String phone = information[1];
                             String email = information[2];
@@ -136,28 +121,20 @@ public class Main {
                         System.out.println ("Список контактов пустой");
                         continue;
                     }
-                        for (int i = 0; i < contacts.size(); i++) {
-                        System.out.println(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " +
-                                    contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
-                        System.out.println(contacts.size());
+                    System.out.println("Введите имя из списка для удаления: ");
+                    input = reader.readLine();
+                    for (int i = 0; i < contacts.size(); i++) {
+                        if (input.equals(contacts.get(i).getName())) {
+                            contacts.remove(i);
                         }
-
-//                    System.out.println("Введите имя из списка для удаления: ");
-//                    input = reader.readLine();
-//                    for (int i = 0; i < contacts.size(); i++) {
-//                        if (input.equals(contacts.get(i).getName())) {
-//                            contacts.get(i).getPhone().remove(1);
-//                            contacts.remove(1);
-//                            System.out.println(contacts.get(i).getPhone());
-//                        }
-//                    }
-//                        PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile));
-//                        for (int i = 0; i < contacts.size(); i++) {
-//                            writer.print(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " +
-//                                    contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
-//                            writer.flush();
-//                        }
-//                    writer.close();
+                    }
+                        PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile));
+                        for (int i = 0; i < contacts.size(); i++) {
+                            writer.print(contacts.get(i).getName() + " ," + contacts.get(i).getPhone() + " ," +
+                                    contacts.get(i).getEmail() + " ," + contacts.get(i).getAddress() + " ," + contacts.get(i).getWorkplace() + "\n");
+                            writer.flush();
+                        }
+                    writer.close();
                 } else if (input.equals("5")) {
                     System.out.println("Введите \"ne\" для сортировки по имени, а при совпадении по email");
                     System.out.println("Введите \"en\" для сортировки по email, а при совпадении по имени");
