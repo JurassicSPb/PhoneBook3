@@ -14,7 +14,6 @@ public class Main {
             ArrayList<DetailContact> contacts = new ArrayList<>();
             File inputFile = new File("contacts.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
             String line;
             Comparator<Contact> compByNameAscending = (name1, name2) -> name1.getName().compareTo(name2.getName());
             Comparator<Contact> compByNameDescending = (name1, name2) -> name2.getName().compareTo(name1.getName());
@@ -70,7 +69,7 @@ public class Main {
                     }
                 } else if (input.equals("2")) {
                     try {
-                        readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+                        BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
                         while ((line = readerFromFile.readLine()) != null) {
                             String[] information = line.split(",");
                             String name = information[0];
@@ -116,7 +115,7 @@ public class Main {
 //                    }
 //                    else {
                     try {
-                        readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+                        BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
                         while ((line = readerFromFile.readLine()) != null) {
                             String[] information = line.split(",");
                             String name = information[0];
@@ -144,18 +143,20 @@ public class Main {
 //                    }
                     System.out.println("Введите имя из списка для удаления: ");
                     input = reader.readLine();
-                    for (int j = 0; j < contacts.size(); j++) {
-                        if (input.equals(contacts.get(j).getName())) {
-                            System.out.println (contacts.size());
-//                            contacts.remove(j);
-                            break;
+                    for (int i = 0; i < contacts.size(); i++) {
+                        if (input.equals(contacts.get(i).getName())) {
+                            contacts.get(i).getPhone().remove(i);
+                            contacts.remove(i);
+                           System.out.println("Hello");
+                            System.out.println(contacts.size());
                         }
                     }
-                    PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile));
-                    for (int i=0; i<contacts.size(); i++){
-                        writer.println(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " +
-                        contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace());
-                    }
+                        PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile));
+                        for (int i = 0; i < contacts.size(); i++) {
+                            writer.println(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " +
+                                    contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace());
+                            writer.flush();
+                        }
                     writer.close();
                 } else if (input.equals("5")) {
                     System.out.println("Введите \"ne\" для сортировки по имени, а при совпадении по email");
