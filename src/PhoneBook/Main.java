@@ -136,43 +136,62 @@ public class Main {
                         }
                     writer.close();
                 } else if (input.equals("5")) {
-                    System.out.println("Введите \"ne\" для сортировки по имени, а при совпадении по email");
-                    System.out.println("Введите \"en\" для сортировки по email, а при совпадении по имени");
-                    System.out.println("Введите \"-ne\" для сортировки по имени в обратном порядке, а при совпадении по email");
-                    System.out.println("Введите \"-en\" для сортировки по email в обратном порядке, а при совпадении по имени");
-                    System.out.println("Введите \"n-e\" для сортировки по имени, а при совпадении по email в обратном порядке");
-                    System.out.println("Введите \"e-n\" для сортировки по email, а при совпадении по имени в обратном порядке");
-                    System.out.println("Введите \"-n-e\" для сортировки по имени в обратном порядке, а при совпадении по email в обратном порядке");
-                    System.out.println("Введите \"-e-n\" для сортировки по email в обратном порядке, а при совпадении по имени в обратном порядке");
+                    BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+                    while ((line = readerFromFile.readLine()) != null) {
+                        String[] information = line.split(" ,");
+                        book = new DetailContact();
+                        String name = information[0];
+                        String phone = information[1];
+                        String email = information[2];
+                        String address = information[3];
+                        String workplace = information[4];
+                        book.setName(name);
+                        book.setPhone(phone);
+                        book.setEmail(email);
+                        book.setAddress(address);
+                        book.setWorkplace(workplace);
+                        contacts.add(book);
+                        }
+                        readerFromFile.close();
+                        System.out.println("Введите \"ne\" для сортировки по имени, а при совпадении по email");
+                        System.out.println("Введите \"en\" для сортировки по email, а при совпадении по имени");
+                        System.out.println("Введите \"-ne\" для сортировки по имени в обратном порядке, а при совпадении по email");
+                        System.out.println("Введите \"-en\" для сортировки по email в обратном порядке, а при совпадении по имени");
+                        System.out.println("Введите \"n-e\" для сортировки по имени, а при совпадении по email в обратном порядке");
+                        System.out.println("Введите \"e-n\" для сортировки по email, а при совпадении по имени в обратном порядке");
+                        System.out.println("Введите \"-n-e\" для сортировки по имени в обратном порядке, а при совпадении по email в обратном порядке");
+                        System.out.println("Введите \"-e-n\" для сортировки по email в обратном порядке, а при совпадении по имени в обратном порядке");
+                        String [] sortArray = new String[] {"n", "e", "-n", "-e" };
 
-                    input = reader.readLine();
-                    if (input.equals("ne")) {
-                        Collections.sort(contacts, compByEmailAscending);
-                        Collections.sort(contacts, compByNameAscending);
-                    } else if (input.equals("en")) {
-                        Collections.sort(contacts, compByNameAscending);
-                        Collections.sort(contacts, compByEmailAscending);
-                    } else if (input.equals("-ne")) {
-                        Collections.sort(contacts, compByEmailAscending);
-                        Collections.sort(contacts, compByNameDescending);
-                    } else if (input.equals("-en")) {
-                        Collections.sort(contacts, compByNameAscending);
-                        Collections.sort(contacts, compByEmailDescending);
-                    } else if (input.equals("n-e")) {
-                        Collections.sort(contacts, compByEmailDescending);
-                        Collections.sort(contacts, compByNameAscending);
-                    } else if (input.equals("e-n")) {
-                        Collections.sort(contacts, compByNameDescending);
-                        Collections.sort(contacts, compByEmailAscending);
-                    } else if (input.equals("-n-e")) {
-                        Collections.sort(contacts, compByEmailDescending);
-                        Collections.sort(contacts, compByNameDescending);
-                    } else if (input.equals("-e-n")) {
-                        Collections.sort(contacts, compByNameDescending);
-                        Collections.sort(contacts, compByEmailDescending);
-                    } else {
-                        System.out.println("неверно введенная команда.");
-                    }
+//                        input = reader.readLine();
+//                        if (input.equals("ne")) {
+//                            Collections.sort(contacts, compByEmailAscending);
+//                            Collections.sort(contacts, compByNameAscending);
+//                        } else if (input.equals("en")) {
+//                            Collections.sort(contacts, compByNameAscending);
+//                            Collections.sort(contacts, compByEmailAscending);
+//                        } else if (input.equals("-ne")) {
+//                            Collections.sort(contacts, compByEmailAscending);
+//                            Collections.sort(contacts, compByNameDescending);
+//                        } else if (input.equals("-en")) {
+//                            Collections.sort(contacts, compByNameAscending);
+//                            Collections.sort(contacts, compByEmailDescending);
+//                        } else if (input.equals("n-e")) {
+//                            Collections.sort(contacts, compByEmailDescending);
+//                            Collections.sort(contacts, compByNameAscending);
+//                        } else if (input.equals("e-n")) {
+//                            Collections.sort(contacts, compByNameDescending);
+//                            Collections.sort(contacts, compByEmailAscending);
+//                        } else if (input.equals("-n-e")) {
+//                            Collections.sort(contacts, compByEmailDescending);
+//                            Collections.sort(contacts, compByNameDescending);
+//                        } else if (input.equals("-e-n")) {
+//                            Collections.sort(contacts, compByNameDescending);
+//                            Collections.sort(contacts, compByEmailDescending);
+//                        }
+//                        else {
+//                            System.out.println("неверно введенная команда.");
+//                        }
                 } else {
                     System.out.println("Неверно введенная команда.");
                 }
