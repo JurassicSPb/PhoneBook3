@@ -140,24 +140,23 @@ public class Main {
 //                        System.out.println(contacts.get(i).getName());
 //                        System.out.println(contacts.size());
 //                        }
-//                    }
+
                     System.out.println("Введите имя из списка для удаления: ");
-                    input = reader.readLine();
+//                    input = reader.readLine();
                     for (int i = 0; i < contacts.size(); i++) {
-                        if (input.equals(contacts.get(i).getName())) {
+                        if (reader.readLine().equals(contacts.get(i).getName())) {
                             contacts.get(i).getPhone().remove(i);
                             contacts.remove(i);
-                           System.out.println("Hello");
                             System.out.println(contacts.size());
                         }
                     }
-                        PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile));
-                        for (int i = 0; i < contacts.size(); i++) {
-                            writer.println(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " +
-                                    contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace());
-                            writer.flush();
-                        }
-                    writer.close();
+//                        PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile));
+//                        for (int i = 0; i < contacts.size(); i++) {
+//                            writer.println(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " +
+//                                    contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace());
+//                            writer.flush();
+//                        }
+//                    writer.close();
                 } else if (input.equals("5")) {
                     System.out.println("Введите \"ne\" для сортировки по имени, а при совпадении по email");
                     System.out.println("Введите \"en\" для сортировки по email, а при совпадении по имени");
