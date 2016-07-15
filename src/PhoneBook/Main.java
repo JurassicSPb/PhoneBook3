@@ -136,24 +136,25 @@ public class Main {
                         System.out.println ("Список контактов пустой");
                         continue;
                     }
-//                        for (int i = 0; i < contacts.size(); i++) {
-//                        System.out.println(contacts.get(i).getName());
-//                        System.out.println(contacts.size());
-//                        }
-
-                    System.out.println("Введите имя из списка для удаления: ");
-//                    input = reader.readLine();
-                    for (int i = 0; i < contacts.size(); i++) {
-                        if (reader.readLine().equals(contacts.get(i).getName())) {
-                            contacts.get(i).getPhone().remove(i);
-                            contacts.remove(i);
-                            System.out.println(contacts.size());
+                        for (int i = 0; i < contacts.size(); i++) {
+                        System.out.println(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " +
+                                    contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
+                        System.out.println(contacts.size());
                         }
-                    }
+
+//                    System.out.println("Введите имя из списка для удаления: ");
+//                    input = reader.readLine();
+//                    for (int i = 0; i < contacts.size(); i++) {
+//                        if (input.equals(contacts.get(i).getName())) {
+//                            contacts.get(i).getPhone().remove(1);
+//                            contacts.remove(1);
+//                            System.out.println(contacts.get(i).getPhone());
+//                        }
+//                    }
 //                        PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile));
 //                        for (int i = 0; i < contacts.size(); i++) {
-//                            writer.println(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " +
-//                                    contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace());
+//                            writer.print(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " +
+//                                    contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
 //                            writer.flush();
 //                        }
 //                    writer.close();
