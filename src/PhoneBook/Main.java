@@ -161,24 +161,26 @@ public class Main {
 //                        System.out.println("Введите \"e-n\" для сортировки по email, а при совпадении по имени в обратном порядке");
 //                        System.out.println("Введите \"-n-e\" для сортировки по имени в обратном порядке, а при совпадении по email в обратном порядке");
 //                        System.out.println("Введите \"-e-n\" для сортировки по email в обратном порядке, а при совпадении по имени в обратном порядке");
-//                        String [] sortArray = new String[] {"n", "e", "-n", "-e" };
-//                        input = reader.readLine();
-//                        String inputTwo = reader.readLine();
-//                    for (int i=0; i<sortArray.length; i++)
-//                    {
-//                        if (input.equals(sortArray[0]))
-//                        {
-//                            Collections.sort(contacts, compByEmailAscending);
-//                            if (inputTwo.equals(sortArray[1]))
-//                            {
-//                                Collections.sort(contacts, compByNameAscending);
-//                            }
-//                            else
-//                            {
-//                                Collections.sort(contacts, compByNameDescending);
-//                            }
-//                        }
-//                    }
+                        String [] sortArray = new String[] {"n", "e", "-n", "-e" };
+                        input = reader.readLine();
+                        String inputTwo = reader.readLine();
+                        if (input.equals(sortArray[0])) {
+                            if (inputTwo.equals(sortArray[1]) ) {
+                                Collections.sort(contacts, compByEmailAscending);
+                                Collections.sort(contacts, compByNameAscending);
+                            }
+                            else if (inputTwo.equals(sortArray[3])) {
+                                Collections.sort(contacts, compByEmailDescending);
+                                Collections.sort(contacts, compByNameAscending);
+                            }
+                            else {
+                                System.out.println("Неверно введенная команда.");
+                                break;
+                            }
+                            for (int i = 0; i < contacts.size(); i++){
+                                System.out.println (contacts.get(i).getName() + ", " +contacts.get(i).getEmail());
+                            }
+                        }
 //                    for (int i=0; i<contacts.size(); i++) {
 //                        System.out.print(contacts.get(i).getName());
 //                    }
@@ -207,9 +209,9 @@ public class Main {
 //                            Collections.sort(contacts, compByNameDescending);
 //                            Collections.sort(contacts, compByEmailDescending);
 //                        }
-//                        else {
-//                            System.out.println("неверно введенная команда.");
-//                        }
+                        else {
+                            System.out.println("неверно введенная команда.");
+                        }
                 } else {
                     System.out.println("Неверно введенная команда.");
                 }
