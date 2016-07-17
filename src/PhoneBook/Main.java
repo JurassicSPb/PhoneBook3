@@ -44,16 +44,16 @@ public class Main {
                         contacts.add(book);
                         for (int i = 0; i < contacts.size(); i++) {
                           if (contacts.get(i).getPhone().size() == 1) {
-                              writer.print(contacts.get(i).getName() + " ," + contacts.get(i).getPhone() + ", " + contacts.get(i).getEmail() + " ," + contacts.get(i).getAddress() + " ," + contacts.get(i).getWorkplace() + "\n");
+                              writer.print(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " + contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
                               writer.flush();
                               contacts.get(i).getPhone().clear();
                             }
                             else {
-                               writer.print(contacts.get(i).getName() + " ,");
+                               writer.print(contacts.get(i).getName() + ", ");
                                for (int k = 0; k < contacts.get(i).getPhone().size(); k++) {
                                    writer.print(contacts.get(i).getPhone().get(k) + " ");
                                 }
-                               writer.print(" ," + contacts.get(i).getEmail() + " ," + contacts.get(i).getAddress() + " ," + contacts.get(i).getWorkplace());
+                               writer.print(", " + contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace());
                                 //writer.println("<--- phones --->");
                                 //writer.printf("<<< %s's phones >>> \n", contacts.get(i).getName());
                                writer.println();
@@ -70,13 +70,13 @@ public class Main {
                     try {
                         BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
                         while ((line = readerFromFile.readLine()) != null) {
-                            String[] information = line.split(" ,");
+                            String[] information = line.split(", ");
                             String name = information[0];
                             String phone = information[1];
                             String email = information[2];
                             String address = information[3];
                             String workplace = information[4];
-                            System.out.print(name + " ," + phone + " ," + email + " ," + address + " ," + workplace + "\n");
+                            System.out.print(name + ", " + phone + ", " + email + ", " + address + ", " + workplace + "\n");
                         }
                         readerFromFile.close();
                     } catch (ArrayIndexOutOfBoundsException e){
@@ -101,7 +101,7 @@ public class Main {
                     try {
                         BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
                         while ((line = readerFromFile.readLine()) != null) {
-                            String[] information = line.split(" ,");
+                            String[] information = line.split(", ");
                             book = new DetailContact();
                             String name = information[0];
                             String phone = information[1];
@@ -130,15 +130,15 @@ public class Main {
                     }
                         PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile));
                         for (int i = 0; i < contacts.size(); i++) {
-                            writer.print(contacts.get(i).getName() + " ," + contacts.get(i).getPhone() + " ," +
-                                    contacts.get(i).getEmail() + " ," + contacts.get(i).getAddress() + " ," + contacts.get(i).getWorkplace() + "\n");
+                            writer.print(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " +
+                                    contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
                             writer.flush();
                         }
                     writer.close();
                 } else if (input.equals("5")) {
                     BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
                     while ((line = readerFromFile.readLine()) != null) {
-                        String[] information = line.split(" ,");
+                        String[] information = line.split(", ");
                         book = new DetailContact();
                         String name = information[0];
                         String phone = information[1];
@@ -153,17 +153,35 @@ public class Main {
                         contacts.add(book);
                         }
                         readerFromFile.close();
-                        System.out.println("Введите \"ne\" для сортировки по имени, а при совпадении по email");
-                        System.out.println("Введите \"en\" для сортировки по email, а при совпадении по имени");
-                        System.out.println("Введите \"-ne\" для сортировки по имени в обратном порядке, а при совпадении по email");
-                        System.out.println("Введите \"-en\" для сортировки по email в обратном порядке, а при совпадении по имени");
-                        System.out.println("Введите \"n-e\" для сортировки по имени, а при совпадении по email в обратном порядке");
-                        System.out.println("Введите \"e-n\" для сортировки по email, а при совпадении по имени в обратном порядке");
-                        System.out.println("Введите \"-n-e\" для сортировки по имени в обратном порядке, а при совпадении по email в обратном порядке");
-                        System.out.println("Введите \"-e-n\" для сортировки по email в обратном порядке, а при совпадении по имени в обратном порядке");
-                        String [] sortArray = new String[] {"n", "e", "-n", "-e" };
-
+//                        +System.out.println("Введите \"ne\" для сортировки по имени, а при совпадении по email");
+//                        System.out.println("Введите \"en\" для сортировки по email, а при совпадении по имени");
+//                        System.out.println("Введите \"-ne\" для сортировки по имени в обратном порядке, а при совпадении по email");
+//                        System.out.println("Введите \"-en\" для сортировки по email в обратном порядке, а при совпадении по имени");
+//                        +System.out.println("Введите \"n-e\" для сортировки по имени, а при совпадении по email в обратном порядке");
+//                        System.out.println("Введите \"e-n\" для сортировки по email, а при совпадении по имени в обратном порядке");
+//                        System.out.println("Введите \"-n-e\" для сортировки по имени в обратном порядке, а при совпадении по email в обратном порядке");
+//                        System.out.println("Введите \"-e-n\" для сортировки по email в обратном порядке, а при совпадении по имени в обратном порядке");
+//                        String [] sortArray = new String[] {"n", "e", "-n", "-e" };
 //                        input = reader.readLine();
+//                        String inputTwo = reader.readLine();
+//                    for (int i=0; i<sortArray.length; i++)
+//                    {
+//                        if (input.equals(sortArray[0]))
+//                        {
+//                            Collections.sort(contacts, compByEmailAscending);
+//                            if (inputTwo.equals(sortArray[1]))
+//                            {
+//                                Collections.sort(contacts, compByNameAscending);
+//                            }
+//                            else
+//                            {
+//                                Collections.sort(contacts, compByNameDescending);
+//                            }
+//                        }
+//                    }
+//                    for (int i=0; i<contacts.size(); i++) {
+//                        System.out.print(contacts.get(i).getName());
+//                    }
 //                        if (input.equals("ne")) {
 //                            Collections.sort(contacts, compByEmailAscending);
 //                            Collections.sort(contacts, compByNameAscending);
