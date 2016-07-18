@@ -30,4 +30,13 @@ public class DetailContact extends Contact implements Comparable<DetailContact> 
         return this.getName().compareTo(o.getName());
     }
 
+    public void getInfo (String line){
+        String[] information = line.split(", ");
+        String name = information[0];
+        String phone = information[1];
+        String email = information[2];
+        String address = information[3];
+        String workplace = information[4];
+        System.out.print(name + ", " + phone + ", " + email + ", " + address + ", " + workplace + "\n");
+    }
 }

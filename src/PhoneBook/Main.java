@@ -70,13 +70,7 @@ public class Main {
                     try {
                         BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
                         while ((line = readerFromFile.readLine()) != null) {
-                            String[] information = line.split(", ");
-                            String name = information[0];
-                            String phone = information[1];
-                            String email = information[2];
-                            String address = information[3];
-                            String workplace = information[4];
-                            System.out.print(name + ", " + phone + ", " + email + ", " + address + ", " + workplace + "\n");
+                              book.getInfo(line);
                         }
                         readerFromFile.close();
                     } catch (ArrayIndexOutOfBoundsException e){
@@ -114,7 +108,7 @@ public class Main {
                             book.setAddress(address);
                             book.setWorkplace(workplace);
                             contacts.add(book);
-                            System.out.println(name + " ");
+                            System.out.println(name);
                         }
                         readerFromFile.close();
                     } catch (ArrayIndexOutOfBoundsException e){
@@ -153,34 +147,50 @@ public class Main {
                         contacts.add(book);
                         }
                         readerFromFile.close();
-//                        +System.out.println("Введите \"ne\" для сортировки по имени, а при совпадении по email");
+//                        System.out.println("Введите \"ne\" для сортировки по имени, а при совпадении по email");
 //                        System.out.println("Введите \"en\" для сортировки по email, а при совпадении по имени");
 //                        System.out.println("Введите \"-ne\" для сортировки по имени в обратном порядке, а при совпадении по email");
 //                        System.out.println("Введите \"-en\" для сортировки по email в обратном порядке, а при совпадении по имени");
-//                        +System.out.println("Введите \"n-e\" для сортировки по имени, а при совпадении по email в обратном порядке");
+//                        System.out.println("Введите \"n-e\" для сортировки по имени, а при совпадении по email в обратном порядке");
 //                        System.out.println("Введите \"e-n\" для сортировки по email, а при совпадении по имени в обратном порядке");
 //                        System.out.println("Введите \"-n-e\" для сортировки по имени в обратном порядке, а при совпадении по email в обратном порядке");
 //                        System.out.println("Введите \"-e-n\" для сортировки по email в обратном порядке, а при совпадении по имени в обратном порядке");
                         String [] sortArray = new String[] {"n", "e", "-n", "-e" };
                         input = reader.readLine();
-                        String inputTwo = reader.readLine();
                         if (input.equals(sortArray[0])) {
-                            if (inputTwo.equals(sortArray[1]) ) {
-                                Collections.sort(contacts, compByEmailAscending);
-                                Collections.sort(contacts, compByNameAscending);
-                            }
-                            else if (inputTwo.equals(sortArray[3])) {
-                                Collections.sort(contacts, compByEmailDescending);
-                                Collections.sort(contacts, compByNameAscending);
-                            }
-                            else {
-                                System.out.println("Неверно введенная команда.");
-                                break;
-                            }
+                            Collections.sort(contacts, compByNameAscending);
+                        }
+                        else if (input.equals(sortArray[2])) {
+                                Collections.sort(contacts, compByNameDescending);
+                        }
+                        else {
+                            System.out.println("Неверно введенная команда.");
+                        }
+                        String inputTwo = reader.readLine();
+                        if (inputTwo.equals(sortArray[1])) {
+                            Collections.sort(contacts, compByEmailAscending);
+                        }
+                        else if (inputTwo.equals(sortArray[3])) {
+                            Collections.sort(contacts, compByEmailDescending);
+                        }
+                        else {
+                            System.out.println("Неверно введенная команда.");
+                        }
+                        //         Collections.sort(contacts, compByEmailAscending);
+//                                Collections.sort(contacts, compByNameAscending);
+//                            }
+//                            else if (inputTwo.equals(sortArray[3])) {
+//                                Collections.sort(contacts, compByEmailDescending);
+//                                Collections.sort(contacts, compByNameAscending);
+//                            }
+//                            else {
+//                                System.out.println("Неверно введенная команда.");
+//                                break;
+//                            }
                             for (int i = 0; i < contacts.size(); i++){
                                 System.out.println (contacts.get(i).getName() + ", " +contacts.get(i).getEmail());
                             }
-                        }
+
 //                    for (int i=0; i<contacts.size(); i++) {
 //                        System.out.print(contacts.get(i).getName());
 //                    }
@@ -209,9 +219,6 @@ public class Main {
 //                            Collections.sort(contacts, compByNameDescending);
 //                            Collections.sort(contacts, compByEmailDescending);
 //                        }
-                        else {
-                            System.out.println("неверно введенная команда.");
-                        }
                 } else {
                     System.out.println("Неверно введенная команда.");
                 }
