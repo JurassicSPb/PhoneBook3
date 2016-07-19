@@ -2,12 +2,18 @@ package PhoneBook;
 import java.io.BufferedReader;
 import java.util.*;
 import java.io.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 /**
  * Created by Юрий on 11.06.2016.
  */
 public class Main {
     public static void main(String[] args) {
+        ContactInferface contactInferface = new ContactInferface();
+        contactInferface.setVisible(true);
+        contactInferface.pack();
         try {
             System.out.println("Телефонная книга.");
             DetailContact book = new DetailContact();
