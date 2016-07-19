@@ -147,78 +147,51 @@ public class Main {
                         contacts.add(book);
                         }
                         readerFromFile.close();
-//                        System.out.println("Введите \"ne\" для сортировки по имени, а при совпадении по email");
-//                        System.out.println("Введите \"en\" для сортировки по email, а при совпадении по имени");
-//                        System.out.println("Введите \"-ne\" для сортировки по имени в обратном порядке, а при совпадении по email");
-//                        System.out.println("Введите \"-en\" для сортировки по email в обратном порядке, а при совпадении по имени");
-//                        System.out.println("Введите \"n-e\" для сортировки по имени, а при совпадении по email в обратном порядке");
-//                        System.out.println("Введите \"e-n\" для сортировки по email, а при совпадении по имени в обратном порядке");
-//                        System.out.println("Введите \"-n-e\" для сортировки по имени в обратном порядке, а при совпадении по email в обратном порядке");
-//                        System.out.println("Введите \"-e-n\" для сортировки по email в обратном порядке, а при совпадении по имени в обратном порядке");
-                        String [] sortArray = new String[] {"n", "e", "-n", "-e" };
+                        System.out.println("Введите \"ne\" для сортировки по имени, а при совпадении по email");
+                        System.out.println("Введите \"en\" для сортировки по email, а при совпадении по имени");
+                        System.out.println("Введите \"-ne\" для сортировки по имени в обратном порядке, а при совпадении по email");
+                        System.out.println("Введите \"-en\" для сортировки по email в обратном порядке, а при совпадении по имени");
+                        System.out.println("Введите \"n-e\" для сортировки по имени, а при совпадении по email в обратном порядке");
+                        System.out.println("Введите \"e-n\" для сортировки по email, а при совпадении по имени в обратном порядке");
+                        System.out.println("Введите \"-n-e\" для сортировки по имени в обратном порядке, а при совпадении по email в обратном порядке");
+                        System.out.println("Введите \"-e-n\" для сортировки по email в обратном порядке, а при совпадении по имени в обратном порядке");
                         input = reader.readLine();
-                        if (input.equals(sortArray[0])) {
-                            Collections.sort(contacts, compByNameAscending);
-                        }
-                        else if (input.equals(sortArray[2])) {
-                                Collections.sort(contacts, compByNameDescending);
-                        }
-                        else {
-                            System.out.println("Неверно введенная команда.");
-                        }
-                        String inputTwo = reader.readLine();
-                        if (inputTwo.equals(sortArray[1])) {
+                        if (input.equals("ne")) {
                             Collections.sort(contacts, compByEmailAscending);
-                        }
-                        else if (inputTwo.equals(sortArray[3])) {
+                            Collections.sort(contacts, compByNameAscending);
+                        } else if (input.equals("en")) {
+                            Collections.sort(contacts, compByNameAscending);
+                            Collections.sort(contacts, compByEmailAscending);
+                        } else if (input.equals("-ne")) {
+                            Collections.sort(contacts, compByEmailAscending);
+                            Collections.sort(contacts, compByNameDescending);
+                        } else if (input.equals("-en")) {
+                            Collections.sort(contacts, compByNameAscending);
+                            Collections.sort(contacts, compByEmailDescending);
+                        } else if (input.equals("n-e")) {
+                            Collections.sort(contacts, compByEmailDescending);
+                            Collections.sort(contacts, compByNameAscending);
+                        } else if (input.equals("e-n")) {
+                            Collections.sort(contacts, compByNameDescending);
+                            Collections.sort(contacts, compByEmailAscending);
+                        } else if (input.equals("-n-e")) {
+                            Collections.sort(contacts, compByEmailDescending);
+                            Collections.sort(contacts, compByNameDescending);
+                        } else if (input.equals("-e-n")) {
+                            Collections.sort(contacts, compByNameDescending);
                             Collections.sort(contacts, compByEmailDescending);
                         }
-                        else {
+                        else
                             System.out.println("Неверно введенная команда.");
-                        }
-                        //         Collections.sort(contacts, compByEmailAscending);
-//                                Collections.sort(contacts, compByNameAscending);
-//                            }
-//                            else if (inputTwo.equals(sortArray[3])) {
-//                                Collections.sort(contacts, compByEmailDescending);
-//                                Collections.sort(contacts, compByNameAscending);
-//                            }
-//                            else {
-//                                System.out.println("Неверно введенная команда.");
-//                                break;
-//                            }
-                            for (int i = 0; i < contacts.size(); i++){
-                                System.out.println (contacts.get(i).getName() + ", " +contacts.get(i).getEmail());
-                            }
-
-//                    for (int i=0; i<contacts.size(); i++) {
-//                        System.out.print(contacts.get(i).getName());
-//                    }
-//                        if (input.equals("ne")) {
-//                            Collections.sort(contacts, compByEmailAscending);
-//                            Collections.sort(contacts, compByNameAscending);
-//                        } else if (input.equals("en")) {
-//                            Collections.sort(contacts, compByNameAscending);
-//                            Collections.sort(contacts, compByEmailAscending);
-//                        } else if (input.equals("-ne")) {
-//                            Collections.sort(contacts, compByEmailAscending);
-//                            Collections.sort(contacts, compByNameDescending);
-//                        } else if (input.equals("-en")) {
-//                            Collections.sort(contacts, compByNameAscending);
-//                            Collections.sort(contacts, compByEmailDescending);
-//                        } else if (input.equals("n-e")) {
-//                            Collections.sort(contacts, compByEmailDescending);
-//                            Collections.sort(contacts, compByNameAscending);
-//                        } else if (input.equals("e-n")) {
-//                            Collections.sort(contacts, compByNameDescending);
-//                            Collections.sort(contacts, compByEmailAscending);
-//                        } else if (input.equals("-n-e")) {
-//                            Collections.sort(contacts, compByEmailDescending);
-//                            Collections.sort(contacts, compByNameDescending);
-//                        } else if (input.equals("-e-n")) {
-//                            Collections.sort(contacts, compByNameDescending);
-//                            Collections.sort(contacts, compByEmailDescending);
-//                        }
+                    PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile));
+                    for (int i = 0; i < contacts.size(); i++) {
+                        writer.print(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " +
+                                contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
+                        writer.flush();
+                        contacts.get(i).getPhone().clear();
+                    }
+                    contacts.clear();
+                    writer.close();
                 } else {
                     System.out.println("Неверно введенная команда.");
                 }
