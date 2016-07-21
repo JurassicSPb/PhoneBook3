@@ -1,4 +1,7 @@
 package PhoneBook;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.io.Serializable;
@@ -8,6 +11,9 @@ import java.io.Serializable;
 public class DetailContact extends Contact implements Comparable<DetailContact> {
     private String address;
     private String workplace;
+    private JButton b1, b2, b3, b4, b5;
+    private JLabel l1;
+    private int count=0;
 
     public void setAddress(String address) {
         this.address = address;
@@ -39,4 +45,27 @@ public class DetailContact extends Contact implements Comparable<DetailContact> 
         String workplace = information[4];
         System.out.print(name + ", " + phone + ", " + email + ", " + address + ", " + workplace + "\n");
     }
+    public DetailContact () {
+        super ("Телефонная книга");
+        setSize(300, 400);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container c = getContentPane();
+        c.setLayout(new FlowLayout());
+        c.add (l1 = new JLabel("Меню"), BorderLayout.NORTH);
+        c.add (b1 = new JButton("Добавить контакт"), BorderLayout.CENTER);
+        b1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    count =+ 1;
+                    updateText();
+                }
+        });
 }
+        public void updateText(){
+            l1.setText(" " + count);
+        }
+
+}
+
+

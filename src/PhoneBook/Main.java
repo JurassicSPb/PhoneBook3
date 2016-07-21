@@ -11,9 +11,6 @@ import java.awt.event.*;
  */
 public class Main {
     public static void main(String[] args) {
-        ContactInferface contactInferface = new ContactInferface();
-        contactInferface.setVisible(true);
-        contactInferface.pack();
         try {
             System.out.println("Телефонная книга.");
             DetailContact book = new DetailContact();
