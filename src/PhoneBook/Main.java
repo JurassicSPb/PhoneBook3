@@ -12,6 +12,23 @@ import java.awt.event.*;
 public class Main {
     public static void main(String[] args) {
         try {
+            JFrame frame = new JFrame("Телефонная книга");
+            JLabel l1 = new JLabel("Меню");
+            JButton b1 = new JButton("Добавить контакт");
+            frame.setSize(300, 400);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+            frame.setLayout(new FlowLayout());
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.getContentPane().add(l1 ,BorderLayout.NORTH);
+            frame.getContentPane().add(b1, BorderLayout.CENTER);
+            b1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+
+                }
+            });
+            
             System.out.println("Телефонная книга.");
             DetailContact book = new DetailContact();
             ArrayList<DetailContact> contacts = new ArrayList<>();
