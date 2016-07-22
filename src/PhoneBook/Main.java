@@ -3,6 +3,9 @@ import java.io.BufferedReader;
 import java.util.*;
 import java.io.*;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -12,7 +15,6 @@ import java.awt.event.*;
 public class Main {
     public static void main(String[] args) {
         try {
-//          System.out.println("Телефонная книга.");
             DetailContact book = new DetailContact();
             ArrayList<DetailContact> contacts = new ArrayList<>();
             File inputFile = new File("contacts.txt");
@@ -23,50 +25,77 @@ public class Main {
             Comparator<Contact> compByEmailAscending = (email1, email2) -> email1.getEmail().compareTo(email2.getEmail());
             Comparator<Contact> compByEmailDescending = (email1, email2) -> email2.getEmail().compareTo(email1.getEmail());
             JFrame frame = new JFrame("Телефонная книга");
-            JLabel l1 = new JLabel("Меню");
-            JButton b1 = new JButton("Добавить контакт");
-            JTextField t1 = new JTextField();
-            frame.setSize(300, 400);
+            frame.setSize(400,300);
+            JPanel panel = new JPanel();
+            JLabel l1 = new JLabel("Меню:");
+            l1.setLocation(20, 5);
+            JButton b1 = new JButton("1. Добавить контакт");
+            panel.add(l1);
+            l1.setSize(150, 30);
+            b1.setSize(150, 30);
+            b1.setLocation(20,30);
+            panel.add(b1);
+            panel.setBorder(new LineBorder(Color.BLUE, 2));
             frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-            frame.setLayout(new FlowLayout());
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.getContentPane().add(l1 ,BorderLayout.NORTH);
-            frame.getContentPane().add(b1, BorderLayout.CENTER);
-            frame.getContentPane().add(t1, BorderLayout.SOUTH);
+            frame.setVisible(true);
+            panel.setLayout(null);
+            frame.setContentPane(panel);
             b1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
                         DetailContact book = new DetailContact();
                         PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile, true));
-                        String name = JOptionPane.showInputDialog(null, "Введите имя:");
+                        String name = JOptionPane.showInputDialog(frame, "Введите имя:", "Введите значение", JOptionPane.WARNING_MESSAGE);
                         book.setName(name);
                         while (true) {
-                            String phone = JOptionPane.showInputDialog(null, "Введите  телефон или нажмите 'n' для выхода:");
+                            String phone = JOptionPane.showInputDialog(frame, "Введите  телефон или нажмите 'n' для выхода:", "Введите значение", JOptionPane.WARNING_MESSAGE);
                             if (phone.equals("n"))
                                 break;
                             else
                                 book.setPhone(phone);
                         }
-                        String email = JOptionPane.showInputDialog(null, "Введите email:");
+                        String email = JOptionPane.showInputDialog(null, "Введите email:", "Введите значение", JOptionPane.WARNING_MESSAGE);
                         book.setEmail(email);
-                        String address = JOptionPane.showInputDialog(null, "Введите адрес:");
+                        String address = JOptionPane.showInputDialog(null, "Введите адрес:", "Введите значение", JOptionPane.WARNING_MESSAGE);
                         book.setAddress(address);
-                        String workplace = JOptionPane.showInputDialog(null, "Введите место работы:");
+                        String workplace = JOptionPane.showInputDialog(null, "Введите место работы:", "Введите значение", JOptionPane.WARNING_MESSAGE);
                         book.setWorkplace(workplace);
                         contacts.add(book);
-                        for (int i=0; i<contacts.size(); i++) {
-                            JOptionPane.showMessageDialog(null, contacts.get(i).getName());
+                        for (int i = 0; i < contacts.size(); i++) {
+                            if (contacts.get(i).getPhone().size() == 1) {
+                                writer.print(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " + contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
+                                writer.flush();
+                                contacts.get(i).getPhone().clear();
+                            }
+                            else {
+                                writer.print(contacts.get(i).getName() + ", ");
+                                for (int k = 0; k < contacts.get(i).getPhone().size(); k++) {
+                                    writer.print(contacts.get(i).getPhone().get(k) + " ");
+                                }
+                                writer.print(", " + contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace());
+                                writer.println();
+                                writer.flush();
+                                contacts.get(i).getPhone().clear();
+                            }
                         }
-
+                        contacts.clear();
+                        writer.close();
+//                        for (int i=0; i<contacts.size(); i++) {
+//                            JOptionPane.showMessageDialog(null, contacts.get(i).getName());
+//                        }
 
                     } catch (IOException ex){
-
+                        JOptionPane.showMessageDialog(null, "Отмена");
+                    }
+                    catch (NullPointerException nx){
+                        JOptionPane.showMessageDialog(null, "Отмена");
                     }
                 }
             });
             while (true) {
+                System.out.println("Телефонная книга.");
                 System.out.println("Menu: \n 1. Добавить контакт \n 2. Показать все контакты \n 3. Выход \n 4. Удалить контакт \n 5. Настройкка сортировки контактов");
                 String input = reader.readLine();
                 if (input.equals("1")) {
