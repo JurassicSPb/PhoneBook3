@@ -12,7 +12,7 @@ public class DetailContact extends Contact implements Comparable<DetailContact> 
     private String address;
     private String workplace;
     private JButton b1, b2, b3, b4, b5;
-    private JLabel l1;
+    private JLabel l1, l2;
     private int count=0;
 
     public void setAddress(String address) {
@@ -54,16 +54,17 @@ public class DetailContact extends Contact implements Comparable<DetailContact> 
         c.setLayout(new FlowLayout());
         c.add (l1 = new JLabel("Меню"), BorderLayout.NORTH);
         c.add (b1 = new JButton("Добавить контакт"), BorderLayout.CENTER);
+        c.add (l2 = new JLabel("0"), BorderLayout.SOUTH);
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    count =+ 1;
+                    count = count+1;
                     updateText();
                 }
         });
 }
         public void updateText(){
-            l1.setText(" " + count);
+            l2.setText(" " + count);
         }
 
 }
