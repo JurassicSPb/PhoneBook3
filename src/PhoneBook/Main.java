@@ -103,7 +103,7 @@ public class Main {
                             line="";
                             BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
                             while ((s = readerFromFile.readLine()) != null) {
-                                line = line+s+'\n';
+                                line += s+'\n';
                             }
                             JOptionPane.showMessageDialog(null, line);
                             readerFromFile.close();
