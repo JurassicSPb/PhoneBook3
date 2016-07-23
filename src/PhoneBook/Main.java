@@ -30,11 +30,15 @@ public class Main {
             JLabel l1 = new JLabel("Меню:");
             l1.setLocation(20, 5);
             JButton b1 = new JButton("1. Добавить контакт");
+            JButton b2 = new JButton("2. Показать все контакты");
             panel.add(l1);
             l1.setSize(150, 30);
             b1.setSize(150, 30);
+            b2.setSize(185, 30);
             b1.setLocation(20,30);
+            b2.setLocation(20,70);
             panel.add(b1);
+            panel.add(b2);
             panel.setBorder(new LineBorder(Color.BLUE, 2));
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,9 +86,6 @@ public class Main {
                         }
                         contacts.clear();
                         writer.close();
-//                        for (int i=0; i<contacts.size(); i++) {
-//                            JOptionPane.showMessageDialog(null, contacts.get(i).getName());
-//                        }
 
                     } catch (IOException ex){
                         JOptionPane.showMessageDialog(null, "Отмена");
@@ -94,6 +95,26 @@ public class Main {
                     }
                 }
             });
+                b2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            String line,s;
+                            line="";
+                            BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+                            while ((s = readerFromFile.readLine()) != null) {
+                                line = line+s+'\n';
+                            }
+                            JOptionPane.showMessageDialog(null, line);
+                            readerFromFile.close();
+                        } catch (IOException ex) {
+                            JOptionPane.showMessageDialog(null, "Отмена");
+                        } catch (ArrayIndexOutOfBoundsException ea) {
+                            JOptionPane.showMessageDialog(null, "Список контактов пустой");
+                        }
+                    }
+                });
+
             while (true) {
                 System.out.println("Телефонная книга.");
                 System.out.println("Menu: \n 1. Добавить контакт \n 2. Показать все контакты \n 3. Выход \n 4. Удалить контакт \n 5. Настройкка сортировки контактов");

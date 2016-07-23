@@ -40,7 +40,7 @@ public class DetailContact extends Contact implements Comparable<DetailContact> 
         String email = information[2];
         String address = information[3];
         String workplace = information[4];
-        System.out.print(name + ", " + phone + ", " + email + ", " + address + ", " + workplace + "\n");
+        System.out.print (name + ", " + phone + ", " + email + ", " + address + ", " + workplace + "\n");
     }
 }
 
