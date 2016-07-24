@@ -2,6 +2,7 @@ package PhoneBook;
 import java.io.BufferedReader;
 import java.util.*;
 import java.io.*;
+import java.sql.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -14,11 +15,30 @@ import java.awt.event.*;
  */
 public class Main {
     public static void main(String[] args) {
-        DetailContact book = new DetailContact();
+        Connection conn = null;
+        try {
+            String userName = "root";
+            String password = "";
+            String url = "jdbc:mysql://localhost:3306/test";
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            conn = DriverManager.getConnection(url, userName, password);
+            JOptionPane.showMessageDialog(null, "Database connection established");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Cannot connect to database server");
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                    JOptionPane.showMessageDialog(null, "Database connection terminated");
+                } catch (Exception e) {
+                }
+            }
+        }
         ArrayList<DetailContact> contacts = new ArrayList<>();
         File inputFile = new File("contacts.txt");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String line;
         Comparator<Contact> compByNameAscending = (name1, name2) -> name1.getName().compareTo(name2.getName());
         Comparator<Contact> compByNameDescending = (name1, name2) -> name2.getName().compareTo(name1.getName());
         Comparator<Contact> compByEmailAscending = (email1, email2) -> email1.getEmail().compareTo(email2.getEmail());
@@ -200,15 +220,15 @@ public class Main {
                     }
                     readerFromFile.close();
                     input = JOptionPane.showInputDialog(null,
-                    "Введите \"ne\" для сортировки по имени, а при совпадении по email \n" +
-                    "Введите \"en\" для сортировки по email, а при совпадении по имени \n" +
-                    "Введите \"-ne\" для сортировки по имени в обратном порядке, а при совпадении по email \n" +
-                    "Введите \"-en\" для сортировки по email в обратном порядке, а при совпадении по имени \n" +
-                    "Введите \"n-e\" для сортировки по имени, а при совпадении по email в обратном порядке \n" +
-                    "Введите \"e-n\" для сортировки по email, а при совпадении по имени в обратном порядке \n" +
-                    "Введите \"-n-e\" для сортировки по имени в обратном порядке, а при совпадении по email в обратном порядке \n" +
-                    "Введите \"-e-n\" для сортировки по email в обратном порядке, а при совпадении по имени в обратном порядке",
-                    JOptionPane.WARNING_MESSAGE);
+                            "Введите \"ne\" для сортировки по имени, а при совпадении по email \n" +
+                                    "Введите \"en\" для сортировки по email, а при совпадении по имени \n" +
+                                    "Введите \"-ne\" для сортировки по имени в обратном порядке, а при совпадении по email \n" +
+                                    "Введите \"-en\" для сортировки по email в обратном порядке, а при совпадении по имени \n" +
+                                    "Введите \"n-e\" для сортировки по имени, а при совпадении по email в обратном порядке \n" +
+                                    "Введите \"e-n\" для сортировки по email, а при совпадении по имени в обратном порядке \n" +
+                                    "Введите \"-n-e\" для сортировки по имени в обратном порядке, а при совпадении по email в обратном порядке \n" +
+                                    "Введите \"-e-n\" для сортировки по email в обратном порядке, а при совпадении по имени в обратном порядке",
+                            JOptionPane.WARNING_MESSAGE);
                     if (input.equals("ne")) {
                         Collections.sort(contacts, compByEmailAscending);
                         Collections.sort(contacts, compByNameAscending);
