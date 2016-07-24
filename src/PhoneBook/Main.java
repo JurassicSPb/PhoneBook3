@@ -31,14 +31,22 @@ public class Main {
             l1.setLocation(20, 5);
             JButton b1 = new JButton("1. Добавить контакт");
             JButton b2 = new JButton("2. Показать все контакты");
+            JButton b3 = new JButton("3. Выход");
+            JButton b4 = new JButton("4. Удалить контакт");
             panel.add(l1);
             l1.setSize(150, 30);
             b1.setSize(150, 30);
             b2.setSize(185, 30);
+            b3.setSize(90, 30);
+            b4.setSize(150, 30);
             b1.setLocation(20,30);
             b2.setLocation(20,70);
+            b3.setLocation(20,110);
+            b4.setLocation(20,150);
             panel.add(b1);
             panel.add(b2);
+            panel.add(b3);
+            panel.add(b4);
             panel.setBorder(new LineBorder(Color.BLUE, 2));
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -114,7 +122,62 @@ public class Main {
                         }
                     }
                 });
+                b3.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JOptionPane.showMessageDialog(null, "Выход из программы");
+                        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                    }
+                });
+                b4.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+                            String line;
+                            String s="";
+                            BufferedReader readerFromFile = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile)));
+                            while ((line = readerFromFile.readLine()) != null) {
+                                String[] information = line.split(", ");
+                                DetailContact book = new DetailContact();
+                                String name = information[0];
+                                s += name+"\n";
+                                String phone = information[1];
+                                String email = information[2];
+                                String address = information[3];
+                                String workplace = information[4];
+                                book.setName(name);
+                                book.setPhone(phone);
+                                book.setEmail(email);
+                                book.setAddress(address);
+                                book.setWorkplace(workplace);
+                                contacts.add(book);
+                            }
+                            JOptionPane.showMessageDialog(null, s);
+                            readerFromFile.close();
+                            String input = JOptionPane.showInputDialog(null, "Введите имя для удаления:", "Введите значение", JOptionPane.WARNING_MESSAGE);
+                        for (int i = 0; i < contacts.size(); i++) {
+                            if (input.equals(contacts.get(i).getName())) {
+                                contacts.remove(i);
+                                System.out.print(contacts.get(i).getName());
+                            }
+                        }
+                        PrintWriter writer = new PrintWriter(new FileOutputStream(inputFile));
+                        for (int i = 0; i < contacts.size(); i++) {
+                            writer.print(contacts.get(i).getName() + ", " + contacts.get(i).getPhone() + ", " +
+                                    contacts.get(i).getEmail() + ", " + contacts.get(i).getAddress() + ", " + contacts.get(i).getWorkplace() + "\n");
+                            writer.flush();
+                        }
+                        writer.close();
+                        } catch (IOException ex) {
+                            JOptionPane.showMessageDialog(null, "Отмена");
 
+                        } catch (ArrayIndexOutOfBoundsException eb){
+                            JOptionPane.showMessageDialog(null, "Список контактов пустой");
+                        }
+                    }
+                });
+
+            
             while (true) {
                 System.out.println("Телефонная книга.");
                 System.out.println("Menu: \n 1. Добавить контакт \n 2. Показать все контакты \n 3. Выход \n 4. Удалить контакт \n 5. Настройкка сортировки контактов");
